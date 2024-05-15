@@ -8,8 +8,10 @@ Servo servos[2];
 uint8_t cereal_sensors[] = {SENSOR_CEREAL_1, SENSOR_CEREAL_2};
 
 uint32_t toPWM(uint32_t val);
-void mainFunction(void);
-void pumpMilk(void);
+void testSensors(void);
+void testEngines(void);
+void testServos(void);
+void testLEDs(void);
 
 void setup() {
     Serial.begin(115200);
@@ -45,46 +47,119 @@ void setup() {
 }
 
 void loop() {
-    mainFunction();
+    Serial.println("DEBUG PROGRAM BEGINS");
+    testSensors();
+    testLEDs();
+    testEngines();
+    testServos();
 }
 
-void mainFunction(void) {
+void testSensors(void) {
+    Serial.println("TESTING SENSORS");
+
+    Serial.println("Milk sensor, waiting until laser works");
+    delay(1000);
+    while (analogRead(SENSOR_MILK) < SENSOR_SENSITIVITY) {
+        Serial.println(analogRead(SENSOR_MILK));
+        delay(200);
+    }
+    Serial.println("Cover the milk sensor");
+    delay(1000);
     while (analogRead(SENSOR_MILK) > SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_MILK));
         delay(200);
     }
+    Serial.println("Milk sensor end");
+    delay(1000);
 
-    pumpMilk();
-
-    digitalWrite(BELT_EN, HIGH);
+    Serial.println("Cereal sensor 1, waiting until laser works");
+    delay(1000);
+    while (analogRead(SENSOR_CEREAL_1) < SENSOR_SENSITIVITY) {
+        Serial.println(analogRead(SENSOR_CEREAL_1));
+        delay(200);
+    }
+    Serial.println("Cover the cereal sensor 1");
+    delay(1000);
     while (analogRead(SENSOR_CEREAL_1) > SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_CEREAL_1));
         delay(200);
     }
+    Serial.println("Cereal sensor 1 end");
+    delay(1000);
 
-    digitalWrite(BELT_EN, LOW);
-    servos[0].write(0);
-    delay(10000);
-    servos[0].write(SERVO1_DEFAULT);
-
+    Serial.println("Cereal sensor 2, waiting until laser works");
+    delay(1000);
+    while (analogRead(SENSOR_CEREAL_2) < SENSOR_SENSITIVITY) {
+        Serial.println(analogRead(SENSOR_CEREAL_2));
+        delay(200);
+    }
+    Serial.println("Cover the cereal sensor 2");
+    delay(1000);
     while (analogRead(SENSOR_CEREAL_2) > SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_CEREAL_2));
         delay(200);
     }
+    Serial.println("SENSOR END");
+    delay(1000);
 }
 
-void pumpMilk(void) {
+void testEngines(void) {
+    Serial.println("TESTING TRANSPORTER ENGINE");
+    Serial.println("WHATEVER IS ON THE TRANSPORTER, TAKE IT AWAY");
+    delay(5000);
+    Serial.println("Transporter forward");
+    digitalWrite(BELT_EN, HIGH);
+    delay(5000);
+    Serial.println("Transporter stop");
+    digitalWrite(BELT_EN, LOW);
+
+    Serial.println("TESTING PUMP");
+    Serial.println("PUT SOMETHING TO TAKE THE FLUID");
+    delay(5000);
+    Serial.println("Milk => bowl");
     digitalWrite(PUMP_BACK, LOW);
     digitalWrite(PUMP_FORWARD, HIGH);
     digitalWrite(PUMP_EN, HIGH);
-    delay(60 * 1000);
-
+    delay(5000);
+    Serial.println("Reverse");
     digitalWrite(PUMP_FORWARD, LOW);
     digitalWrite(PUMP_BACK, HIGH);
-    delay(1000);
-
+    delay(5000);
+    Serial.println("Pump stop");
     digitalWrite(PUMP_BACK, LOW);
     digitalWrite(PUMP_EN, LOW);
+
+    Serial.println("ENGINE END");
+    delay(1000);
+}
+
+void testServos(void) {
+    Serial.println("TESTING SERVOS");
+    Serial.println("Both servos at default position");
+    delay(1000);
+    Serial.println("Spinning servo 1 (put a bowl underneath)");
+    delay(1000);
+    Serial.println("Servo 1");
+    servos[0].write(0);
+    delay(2000);
+    Serial.println("Servo 1 stop");
+    servos[0].write(SERVO1_DEFAULT);
+
+    delay(1000);
+    Serial.println("Spinning servo 2 (put a bowl underneath)");
+    delay(1000);
+    Serial.println("Servo 2");
+    servos[1].write(0);
+    delay(2000);
+    Serial.println("Servo 2 stop");
+    servos[1].write(SERVO2_DEFAULT);
+
+    Serial.println("SERVO END");
+    delay(1000);
+}
+
+void testLEDs(void) {
+    Serial.println("TESTING LEDS");
 }
 
 uint32_t toPWM(uint32_t val) {
