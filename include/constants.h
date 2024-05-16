@@ -9,9 +9,9 @@
 #define PUMP_EN 32
 #define PUMP_FORWARD 33
 #define PUMP_BACK 25
-#define SENSOR_MILK 34
-#define SENSOR_CEREAL_1 35
-#define SENSOR_CEREAL_2 39
+#define SENSOR_MILK 35      // 34
+#define SENSOR_CEREAL_1 34  // 35
+#define SENSOR_CEREAL_2 39  // 39
 #define SERVO_CEREAL_1 27
 #define SERVO_CEREAL_2 26
 
@@ -25,7 +25,7 @@
 #define BELT_SPEED 80
 #define SERVO1_DEFAULT 115
 #define SERVO2_DEFAULT 100
-#define SENSOR_SENSITIVITY 800
+#define SENSOR_SENSITIVITY 3000
 
 // LEDs
 #define LED_COUNT 24

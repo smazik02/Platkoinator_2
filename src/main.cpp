@@ -49,11 +49,11 @@ void setup() {
 
 void loop() {
     Serial.println("DEBUG PROGRAM BEGINS");
-    // readSensors();
+    readSensors();
     // testSensors();
     // testLEDs();
     // testEngines();
-    testServos();
+    // testServos();
 }
 
 void readSensors(void) {
