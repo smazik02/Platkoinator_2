@@ -2,18 +2,18 @@
 #define CONSTANTS
 
 // Change pins
-#define BELT_EN 22
-#define BELT_FORWARD 23
-#define BELT_BACK 21
-#define LED 14
-#define PUMP_EN 17
-#define PUMP_FORWARD 0
-#define PUMP_BACK 16
+#define BELT_EN 17      // 17
+#define BELT_FORWARD 0  // 0
+#define BELT_BACK 16    // 16
+#define LED 22
+#define PUMP_EN 32
+#define PUMP_FORWARD 33
+#define PUMP_BACK 25
 #define SENSOR_MILK 34
 #define SENSOR_CEREAL_1 35
 #define SENSOR_CEREAL_2 39
-#define SERVO_CEREAL_1 26
-#define SERVO_CEREAL_2 25
+#define SERVO_CEREAL_1 27
+#define SERVO_CEREAL_2 26
 
 // PWM channels, resolution and frequency
 #define BELT 0
@@ -28,7 +28,7 @@
 #define SENSOR_SENSITIVITY 800
 
 // LEDs
-#define LED_COUNT 20
+#define LED_COUNT 24
 #define LED_START 3
 #define LED_MILK 5
 #define LED_CEREAL_1 6

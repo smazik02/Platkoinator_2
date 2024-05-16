@@ -8,6 +8,7 @@ Servo servos[2];
 uint8_t cereal_sensors[] = {SENSOR_CEREAL_1, SENSOR_CEREAL_2};
 
 uint32_t toPWM(uint32_t val);
+void readSensors(void);
 void testSensors(void);
 void testEngines(void);
 void testServos(void);
@@ -48,10 +49,20 @@ void setup() {
 
 void loop() {
     Serial.println("DEBUG PROGRAM BEGINS");
-    testSensors();
-    testLEDs();
-    testEngines();
+    // readSensors();
+    // testSensors();
+    // testLEDs();
+    // testEngines();
     testServos();
+}
+
+void readSensors(void) {
+    Serial.println("READING SENSORS");
+
+    Serial.printf("Milk sensor: %d\n", analogRead(SENSOR_MILK));
+    Serial.printf("Cereal sensor 1: %d\n", analogRead(SENSOR_CEREAL_1));
+    Serial.printf("Cereal sensor 2: %d\n\n", analogRead(SENSOR_CEREAL_2));
+    delay(500);
 }
 
 void testSensors(void) {
@@ -121,9 +132,12 @@ void testEngines(void) {
     digitalWrite(PUMP_FORWARD, HIGH);
     digitalWrite(PUMP_EN, HIGH);
     delay(5000);
-    Serial.println("Reverse");
     digitalWrite(PUMP_FORWARD, LOW);
+    digitalWrite(PUMP_EN, LOW);
+    delay(500);
+    Serial.println("Reverse");
     digitalWrite(PUMP_BACK, HIGH);
+    digitalWrite(PUMP_EN, HIGH);
     delay(5000);
     Serial.println("Pump stop");
     digitalWrite(PUMP_BACK, LOW);
