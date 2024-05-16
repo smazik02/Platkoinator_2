@@ -32,10 +32,10 @@ void setup() {
 
     // ledcWrite(BELT, 0);
     // ledcWrite(PUMP, 0);
-    digitalWrite(BELT_EN, LOW);
+    digitalWrite(BELT_EN, HIGH);
     digitalWrite(PUMP_EN, LOW);
 
-    digitalWrite(BELT_FORWARD, HIGH);
+    digitalWrite(BELT_FORWARD, LOW);
     digitalWrite(BELT_BACK, LOW);
     digitalWrite(PUMP_FORWARD, LOW);
     digitalWrite(PUMP_BACK, LOW);
@@ -43,11 +43,11 @@ void setup() {
     servos[0].write(SERVO1_DEFAULT);
     servos[1].write(SERVO2_DEFAULT);
 
-    mainFunction();
+    // mainFunction();
 }
 
 void loop() {
-    // mainFunction();
+    mainFunction();
 }
 
 void mainFunction(void) {
@@ -58,21 +58,23 @@ void mainFunction(void) {
 
     pumpMilk();
 
-    digitalWrite(BELT_EN, HIGH);
+    digitalWrite(BELT_FORWARD, HIGH);
     while (analogRead(SENSOR_CEREAL_1) < SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_CEREAL_1));
         delay(200);
     }
 
-    digitalWrite(BELT_EN, LOW);
+    digitalWrite(BELT_FORWARD, LOW);
     servos[0].write(0);
     delay(10000);
     servos[0].write(SERVO1_DEFAULT);
 
+    digitalWrite(BELT_FORWARD, HIGH);
     while (analogRead(SENSOR_CEREAL_2) < SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_CEREAL_2));
         delay(200);
     }
+    digitalWrite(BELT_FORWARD, LOW);
 }
 
 void pumpMilk(void) {
