@@ -18,14 +18,14 @@
 // PWM channels, resolution and frequency
 #define BELT 0
 #define PUMP 1
-#define FREQ 400
+#define FREQ 50
 #define RES 8
 
 // Adjust sensor sensitivity, servo defaults and engine speeds (0-100 scale)
 #define BELT_SPEED 80
 #define SERVO1_DEFAULT 115
 #define SERVO2_DEFAULT 100
-#define SENSOR_SENSITIVITY 3000
+#define SENSOR_SENSITIVITY 4090
 
 // LEDs
 #define LED_COUNT 24
