@@ -42,14 +42,16 @@ void setup() {
 
     servos[0].write(SERVO1_DEFAULT);
     servos[1].write(SERVO2_DEFAULT);
-}
 
-void loop() {
     mainFunction();
 }
 
+void loop() {
+    // mainFunction();
+}
+
 void mainFunction(void) {
-    while (analogRead(SENSOR_MILK) > SENSOR_SENSITIVITY) {
+    while (analogRead(SENSOR_MILK) < SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_MILK));
         delay(200);
     }
@@ -57,7 +59,7 @@ void mainFunction(void) {
     pumpMilk();
 
     digitalWrite(BELT_EN, HIGH);
-    while (analogRead(SENSOR_CEREAL_1) > SENSOR_SENSITIVITY) {
+    while (analogRead(SENSOR_CEREAL_1) < SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_CEREAL_1));
         delay(200);
     }
@@ -67,7 +69,7 @@ void mainFunction(void) {
     delay(10000);
     servos[0].write(SERVO1_DEFAULT);
 
-    while (analogRead(SENSOR_CEREAL_2) > SENSOR_SENSITIVITY) {
+    while (analogRead(SENSOR_CEREAL_2) < SENSOR_SENSITIVITY) {
         Serial.println(analogRead(SENSOR_CEREAL_2));
         delay(200);
     }
@@ -77,10 +79,13 @@ void pumpMilk(void) {
     digitalWrite(PUMP_BACK, LOW);
     digitalWrite(PUMP_FORWARD, HIGH);
     digitalWrite(PUMP_EN, HIGH);
-    delay(60 * 1000);
-
+    delay(10 * 1000);
+    digitalWrite(PUMP_EN, LOW);
     digitalWrite(PUMP_FORWARD, LOW);
+    delay(500);
+
     digitalWrite(PUMP_BACK, HIGH);
+    digitalWrite(PUMP_EN, HIGH);
     delay(1000);
 
     digitalWrite(PUMP_BACK, LOW);
